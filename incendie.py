@@ -1,4 +1,5 @@
 ####################
+#Information sur le froupe
 #MIASHS L1S2 TD1
 #Groupe 2
 #Yannis KYRIASIS
@@ -8,6 +9,11 @@
 #https://github.com/uvsq22004651/projet_incendie
 ####################
 
-#import
+#Importations de librairies
 
-l
+
+#Fonctions
+
+
+#Programme principale
+
