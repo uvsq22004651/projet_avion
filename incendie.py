@@ -64,6 +64,9 @@ bouton_sauvegarder.grid(column=2, row=0)
 bouton_importer.grid(column=1, row=0)
 bouton_pause.grid(column=1, row=2)
 
+#MARGES
+canvas.create_line(0,2,600,2)
+canvas.create_line(2,400,2,0)
 
 ################################
 # Fin de la boucle
