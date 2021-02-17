@@ -31,16 +31,16 @@ def quadrillage():
 
 ################################
 # Programme principale
-screen = tk.Tk()
-screen.title("Incendie")
+racine = tk.Tk()
+racine.title("Incendie")
 
 
 ################################
 # Création des widgets
 
-canvas = tk.Canvas(screen, width=600, height=400, bg="white")
+canvas = tk.Canvas(racine, width=600, height=400, bg="white")
 
-quadrillage()
+
 
 
 ################################
@@ -48,4 +48,8 @@ quadrillage()
 
 canvas.grid(column=0, row=0)
 
-screen.mainloop()
+bouton_commencer = tk.Button(racine, text="Commencer", command=quadrillage)
+bouton_commencer.grid()
+
+
+racine.mainloop()
