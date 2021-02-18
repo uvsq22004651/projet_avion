@@ -1,0 +1,18 @@
+import tkinter as tk
+import random as rd
+
+
+def changer_couleur():
+    coul = ("blue", "green", "yellow", "red", "black", "magenta")
+    rectangle = canvas.create_rectangle(10, 10, 400, 200, fill=rd.choice(coul))
+
+
+racine = tk.Tk()
+canvas = tk.Canvas(racine, width=500, height=100, bg="black")
+racine.geometry("1080x720")
+Bouton_change = tk.Button(racine, text="Changer de couleur", command=changer_couleur)
+
+canvas.pack()
+Bouton_change.pack()
+
+racine.mainloop()
