@@ -18,25 +18,45 @@ import random as rd
 # Couleur des parcelles
 EAU="blue"
 FORET="green"
-FEU="red"
 PRAIRIE="yellow"
+FEU="red"
 CENDRES_TIEDES="grey"
 CENDRES_ETEINTES="black"
 
+#Création canvas et quadrillage
+LARGEUR = 600
+HAUTEUR = 400
+COTE = 25
 
 ################################# LISTES
 
-color_liste = [EAU, FORET, FEU, PRAIRIE, CENDRES_TIEDES, CENDRES_ETEINTES]
-
+color_liste = [EAU, FORET, PRAIRIE]
 
 ################################# FONCTIONS
 
 def quadrillage():
     """Création du quadrillage"""
-    for l in range(0, 601, 10):
-        for h in range(0, 401, 10):
-            canvas.create_line((0, h), (600, h), fill='black')
-            canvas.create_line((l, 0), (l, 400), fill='black')
+    x0, x1 = 0, LARGEUR
+    y = 0
+    while y <= HAUTEUR:
+        canvas.create_line(x0, y, x1, y, fill = "black")
+        y += COTE
+    
+    y0, y1 = 0, HAUTEUR
+    x = 0
+    while x <= LARGEUR:
+        canvas.create_line(x, y0, x, y1, fill = "black")
+        x += COTE
+
+
+def parcelles():
+    """Création des parcelles d'eau, de forêt et de prairie"""
+    x0, y0, x1, y1 = 0, 0, COTE, COTE
+    if x0 == 0 or x0 == LARGEUR:
+        while x0 <= LARGEUR:
+            canvas.create_rectangle(x0, y0, x1, y1, fill = rd.choice(color_liste))
+        x0 += COTE
+        x1 += COTE
 
 
 
@@ -48,12 +68,11 @@ racine.title("Incendie")
 ################################
 # Création des widgets
 
-canvas = tk.Canvas(racine, width=600, height=400, bg="white")
+canvas = tk.Canvas(racine, width=LARGEUR, height=HAUTEUR, bg="white")
 bouton_commencer = tk.Button(racine, text="Commencer", command=quadrillage)
-bouton_sauvegarder = tk.Button(racine, text="Sauvegarder")
+bouton_sauvegarder = tk.Button(racine, text="Sauvegarder", command=parcelles)
 bouton_importer = tk.Button(racine, text='Importer')
 bouton_pause = tk.Button(racine, text="Pause")
-
 
 ################################
 # Placement des widegts
@@ -63,10 +82,6 @@ bouton_commencer.grid(column=2, row=2)
 bouton_sauvegarder.grid(column=2, row=0)
 bouton_importer.grid(column=1, row=0)
 bouton_pause.grid(column=1, row=2)
-
-#MARGES
-canvas.create_line(0,2,600,2)
-canvas.create_line(2,400,2,0)
 
 ################################
 # Fin de la boucle
