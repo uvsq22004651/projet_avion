@@ -52,25 +52,28 @@ def quadrillage():
 def parcelles():
     """Création des parcelles d'eau, de forêt et de prairie"""
     x0, y0, x1, y1 = 0, 0, COTE, COTE
-    if x0 == 0 or x0 == LARGEUR:
-        while x0 <= LARGEUR:
-            canvas.create_rectangle(x0, y0, x1, y1, fill = rd.choice(color_liste))
+    for parcelle in range(384):
+        canvas.create_rectangle(x0, y0, x1, y1, fill = rd.choice(color_liste))
         x0 += COTE
         x1 += COTE
-
+        if x0 == LARGEUR:
+            x0 = 0
+            y0 += COTE
+            x1 = COTE
+            y1 += COTE
+            canvas.create_rectangle(x0, y0, x1, y1, fill = rd.choice(color_liste))
 
 
 ################################# PROGRAMME PRINCIPALE 
 racine = tk.Tk()
 racine.title("Incendie")
 
-
 ################################
 # Création des widgets
 
-canvas = tk.Canvas(racine, width=LARGEUR, height=HAUTEUR, bg="white")
-bouton_commencer = tk.Button(racine, text="Commencer", command=quadrillage)
-bouton_sauvegarder = tk.Button(racine, text="Sauvegarder", command=parcelles)
+canvas = tk.Canvas(racine, width=LARGEUR, height=HAUTEUR, bg="white", borderwidth=0, highlightthickness=0)
+bouton_commencer = tk.Button(racine, text="Création des parcelles", command=lambda:[quadrillage(), parcelles()])
+bouton_sauvegarder = tk.Button(racine, text="Sauvegarder")
 bouton_importer = tk.Button(racine, text='Importer')
 bouton_pause = tk.Button(racine, text="Pause")
 
