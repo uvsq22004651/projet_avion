@@ -15,13 +15,22 @@ import tkinter as tk
 import random as rd
 
 ################################# CONSTANTES
-#Création canvas et quadrillage
+#Taille Canvas 
 SIZE = 500
 COTE = 10
 
+#Couleurs de parcelles
+
+EAU = "blue"
+FORET = "forest green"
+PRAIRIE = "yellow"
+FEU = "red"
+CENDRES_TIEDES = "grey"
+CENDRES_ETEINTES = "black"
+
 ################################# LISTES
 
-COLOR = ["blue", "forest green", "yellow", "red", "grey", "black"]
+COLOR = [EAU, FORET, PRAIRIE]
 
 ################################# FONCTIONS
 
@@ -52,6 +61,7 @@ def voisins(COTE, i, j):
     """Survole toutes les parcelles pour éxaminer leur voisins"""
     return [(a,b) for (a, b) in [(i, j+1),(i, j-1), (i-1, j), (i+1,j)]
     if a in range(COTE) and b in range(COTE)]
+
 
 
 ################################# PROGRAMME PRINCIPALE 
