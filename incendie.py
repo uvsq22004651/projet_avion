@@ -11,13 +11,22 @@
 
 ################################# IMPORTATIONS DE LIBRAIRIES
 
-import tkinter as tk 
-import random as rd
+# -*- coding: UTF-8 -*-
+
+################################# IMPORTATIONS DE LIBRAIRIES
+
+import tkinter as tk
+from random import sample
+import time
 
 ################################# CONSTANTES
 #Taille Canvas 
 SIZE = 500
 COTE = 10
+p=0.62
+f = 0.3
+n=50
+unit=10
 
 #Couleurs de parcelles
 
@@ -27,43 +36,89 @@ PRAIRIE = "yellow"
 FEU = "red"
 CENDRES_TIEDES = "grey"
 CENDRES_ETEINTES = "black"
-
+DUREE_FEU = 0.015
+DUREE_CENDRE = 0.015
 ################################# LISTES
 
-COLOR = [EAU, FORET, PRAIRIE]
+COLORS = [EAU, FORET, PRAIRIE, FEU, CENDRES_TIEDES, CENDRES_ETEINTES]
 
 ################################# FONCTIONS
 
-def quadrillage():
-    """Création du quadrillage"""
-    x0, x1 = 0, SIZE
-    y = 0
-    while y <= SIZE:
-        canvas.create_line(x0, y, x1, y, fill = "black")
-        y += COTE
-    
-    y0, y1 = 0, SIZE
-    x = 0
-    while x <= SIZE:
-        canvas.create_line(x, y0, x, y1, fill = "black")
-        x += COTE
+states=[[0]*n for _ in range(n)]
 
 
+def fill_cell(states, line, col):
+        A=(unit*col, unit*line)
+        B=(unit*(col+1), unit*(line+1))
+        state=states[line][col]
+        color=COLORS[state]
+        canvas.create_rectangle(A, B, fill=color, outline='')
+
+def fill(states):
+    n=len(states)
+    for line in range(n):
+        for col in range(n):
+            fill_cell(states, line, col)
 
 def parcelles():
     """Création des parcelles d'eau, de forêt et de prairie"""
-    for i in range(50):
-        for j in range(50):
-            canvas.create_rectangle(i*COTE, j*COTE, (i+1)*COTE, (j+1)*COTE, fill = (rd.choice(COLOR)))
-    return i, j        
+    global states
+    units=[(line,col) for col in range(n) for line in range(n)]
+    ntrees=int(n**2*f)
+    nprairies=int(n**2*p)
+    trees=sample(units,ntrees)
+    prairies=sample(units,nprairies)
+    states=[[0]*n for _ in range(n)]  
+    for (i,j) in trees:
+        states[i][j]=1
+    for (i,j) in prairies:
+        states[i][j]=2
+    fill(states)
+    return states
         
-def voisins(COTE, i, j):
+def voisins(n, i, j):
     """Survole toutes les parcelles pour éxaminer leur voisins"""
     return [(a,b) for (a, b) in [(i, j+1),(i, j-1), (i-1, j), (i+1,j)]
-    if a in range(COTE) and b in range(COTE)]
+    if a in range(n) and b in range(n)]
 
 
+def update_states(states):
+    n=len(states)
+    to_fire=[]
+    for line in range(n):
+        for col in range(n):
+            if states[line][col]==3:
+                time.sleep(DUREE_FEU)
+                states[line][col]=4
+                time.sleep(DUREE_CENDRE)
+                states[line][col]=5
+                for (i, j) in voisins(n, line, col):
+                    if states[i][j]==2:
+                        to_fire.append((i, j))
+    for (line,col) in to_fire:
+        states[line][col]=3
+        #time.sleep(DUREE_FEU)
 
+def propagate():
+    global states
+    update_states(states)
+    canvas.delete("all")
+    fill(states)
+    canvas.after(150, propagate)
+
+def fire(event):
+    global states
+    #print('\n'.join(' '.join(map(str, L)) for L in states))
+    
+    x = int(event.x/10)
+    y= int(event.y/10)
+    print (x, y)
+    states[x][y] = 3
+    fill(states)
+    propagate()
+
+
+    
 ################################# PROGRAMME PRINCIPALE 
 racine = tk.Tk()
 racine.title("Incendie")
@@ -85,8 +140,11 @@ bouton_commencer.grid(column=2, row=2)
 bouton_sauvegarder.grid(column=2, row=0)
 bouton_importer.grid(column=1, row=0)
 bouton_pause.grid(column=1, row=2)
+canvas.bind('<Button-1>', fire)
 
 ################################
 # Fin de la boucle
+
+
 
 racine.mainloop()
