@@ -50,7 +50,7 @@ def tracer_ligne(event):
         canvas.delete(screen, second_line)
         print('SUPPR')
         
-screen.bind('<Button-3>', tracer_ligne)
+screen.bind('<Button-1>', tracer_ligne)
 
 def pause():
     global nb_clic

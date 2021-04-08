@@ -60,9 +60,7 @@ def change_carre(event):
     i, j = coord_to_lg(event.x, event.y)
     if tableau[i][j] == -1:
         x, y = i * COTE, j * COTE
-        carre = canvas.create_rectangle(x, y, x + COTE,
-                                        y + COTE, fill=COULEUR_VIVANT,
-                                        outline=COULEUR_QUADR)
+        carre = canvas.create_rectangle(x, y, x + COTE, y + COTE, fill=COULEUR_VIVANT, outline=COULEUR_QUADR)
         tableau[i][j] = carre
     else:
         canvas.delete(tableau[i][j])

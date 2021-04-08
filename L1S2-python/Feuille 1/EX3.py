@@ -16,45 +16,48 @@ screen.title('Fenêtre')
 
 #========================>Constante
 size = 600
-couleur_fond_canvas = 'black'
-couleur_fond_boutton = 'darkgreen'
-clic_left = 0
-clic_middle = 0 
-clic_right = 0
+couleur_fond_canvas='black'
+couleur_fond_boutton='darkgreen'
+nb_croix = 0
+nb_carre = 0 
+nb_cercle = 0
 
 #========================>Fonction
 def create_geometry(event):
-    global clic_right, clic_middle, clic_left
+    global nb_croix, nb_carre, nb_cercle
     x = event.x
     y = event.y
-    if 0 <= clic_left < 1 and 0 <= event.x <= 199:
-        clic_left += 1
-        canvas.create_line((x-25, y-25), (x+25, y+25), fill = 'blue')
-    elif 0 <= clic_middle < 2 and 201 <= event.x <= 399:
-        clic_middle += 1
-    elif 0 <= clic_right < 2 and 401 <= event.x <= 600:
-        clic_right += 1
-        canvas.create_oval((x-25, y-25), (x+25, y+25), fill = 'red')
+    if 0 <= nb_croix < 1 and 0 <= event.x <= 199:
+        nb_croix += 1
+        canvas.create_line(x-25, y-25, x+25, y+25, fill='blue')
+        canvas.create_line(x-25, y+25, x+25, y-25, fill='blue')
+
+    elif 0 <= nb_carre < 2 and 201 <= event.x <= 399:
+        nb_carre += 1
+        canvas.create_rectangle(x-25, y-25, x+25, y+25, fill='green')
+    elif 0 <= nb_cercle < 2 and 401 <= event.x <= 600:
+        nb_cercle += 1
+        canvas.create_oval(x-25, y-25, x+25, y+25, fill='red')
 
 screen.bind('<Button-1>', create_geometry)
 
 def supprimer():
-    global clic_left, clic_middle, clic_right
+    global nb_croix, nb_carre, nb_cercle
     for elem in canvas.find_all():
         canvas.delete(elem)
-        canvas.create_line((200, 0), (200, 600), fill = 'white')
-        canvas.create_line((400, 0), (400, 600), fill = 'white')
-        clic_left = 0
-        clic_middle = 0 
-        clic_right = 0
+        canvas.create_line((200, 0), (200, 600), fill='white')
+        canvas.create_line((400, 0), (400, 600), fill='white')
+        nb_croix = 0
+        nb_carre = 0 
+        nb_cercle = 0
 
 #========================>Programme principal
 #========================>Initialisation widgets
 canvas = tk.Canvas(screen, width = size, height = size, bg = couleur_fond_canvas)
 boutton_restart = tk.Button(screen, text = 'Redémarrer',  bg = couleur_fond_boutton, command = supprimer)
 
-canvas.create_line((200, 0), (200, 600), fill = 'white')
-canvas.create_line((400, 0), (400, 600), fill = 'white')
+canvas.create_line((200, 0), (200, 600), fill='white')
+canvas.create_line((400, 0), (400, 600), fill='white')
 
 #========================>Placement widgets
 canvas.grid(column = 0, row = 0, columnspan = 3)
