@@ -7,7 +7,6 @@
 #Nadir HADEOUI
 #Ismael AYAD
 #Oumou ATJI
-#https://github.com/uvsq22004651/projet_avion/edit/main/incendie.py
 ################################
 
 ################################ Fonctionnement du programme
