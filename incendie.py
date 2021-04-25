@@ -18,6 +18,7 @@ import tkinter as tk
 
 ################################ INITIALISATION
 screen = tk.Tk()
+screen.title("avion")
 
 ################################# CONSTANTES
 SIEGES = "steel blue"
@@ -33,6 +34,8 @@ COTE = 20
 NB_COl = LARGEUR // COTE
 NB_LINE = HAUTEUR // COTE
 
+tableau = None
+
 ################################# FONCTIONS
 def sieges_couloir():
     global COTE, SIEGES, COULOIR
@@ -43,8 +46,29 @@ def sieges_couloir():
                 if i == 3:
                     canvas.itemconfig(carré, fill = COULOIR)
 
-def coordonnées():
-    """Création des coordonnées des sièges des passagers"""
+def coordonnées_lignes_colonnes():
+    """Fonction qui retourne la colonne et la ligne dans l'avion
+    grâce aux coordonnées de x et y"""
+    return x // COTE, y // COTE
+
+
+def tableau_2D():
+    """Création d'un tableau à deux dimension permettant de connaître
+    le rôle de chaque celule, le couloir est initilisé à 0, tandis 
+    que les sièges sont initialisés à 1"""
+    global tableau
+    tableau = []
+    for i in range(NB_COl):
+        if i == 3:
+            tableau.append([0]*NB_LINE) #couloir
+        else:
+            tableau.append([1]*NB_LINE) #sièges
+
+
+def voisins():
+    """Retourne si un passager à un voisin devant ou derrière lui
+    dans le couloir de l'avion"""
+
 
 ################################# PROGRAMME PRINCIPALE 
 canvas = tk.Canvas(screen, width = 140, height = 600, borderwidth=0, highlightthickness=0, bg = "black")
