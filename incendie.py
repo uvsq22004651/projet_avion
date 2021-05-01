@@ -4,7 +4,7 @@
 #Groupe 2
 #Projet_avion
 #Yannis KYRIASIS
-#Nadir HADEOUI
+#Nadir HADIOUI
 #Ismael AYAD
 #Oumou ATJI
 #https://github.com/uvsq22004651/projet_avion/edit/main/incendie.py
@@ -23,7 +23,7 @@ screen.title("avion")
 ################################# CONSTANTES
 SIEGES_VIDES = "steel blue"
 COULOIR = "light steel blue"
-ZERO_BAGEGE = "yellow"
+ZERO_BAGAGE = "yellow"
 UN_BAGAGE = "orange"
 DEUX_BAGAGES = "red"
 SIEGES_OCCUPEES = "green"
