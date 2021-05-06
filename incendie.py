@@ -7,6 +7,7 @@
 #Nadir HADIOUI
 #Ismael AYAD
 #Oumou ATJI
+#Adil
 #https://github.com/uvsq22004651/projet_avion/edit/main/incendie.py
 ################################
 
@@ -35,6 +36,8 @@ NB_COl = LARGEUR // COTE
 NB_LINE = HAUTEUR // COTE
 
 tableau = None
+coords = None
+cpt = 0
 
 ################################# FONCTIONS
 def sieges_couloir():
@@ -45,6 +48,9 @@ def sieges_couloir():
                 carré = canvas.create_rectangle(i*COTE, j*COTE, (1+i)*COTE, (1+j)*COTE, fill = SIEGES_VIDES)
                 if i == 3:
                     canvas.itemconfig(carré, fill = COULOIR)
+                coords.append([i, j])  
+    print(coords)
+    return coords
 
 def coordonnées_lignes_colonnes():
     """Fonction qui retourne la colonne et la ligne dans l'avion
@@ -65,10 +71,26 @@ def tableau_2D():
             tableau.append([1]*NB_LINE) #sièges
 
 
-def voisins():
-    """Retourne si un passager à un voisin devant ou derrière lui
-    dans le couloir de l'avion"""
+def voisins_couloir(i, j):
+    """Examine le couloir de l'avion pour pour examiner leur voisins"""
+    cpt = 0
+    for v in range(3, 4):
+        for w in range(NB_LINE):
+            if tableau[v][w] != 0 and [v, w] != [i, j]:
+                cpt += 1
+    return cpt
 
+
+def traite_case_couloir(i, j):
+    """Traite la case à la colonne i et ligne j en retournant la nouvelle 
+    valeur du tableau"""
+    nb_vivant = compte_vivant(i, j)
+    if tableau[i][j] == -1:
+        print()
+
+
+def voisins_sièges():
+    """Examine les sièges pour savoir si un passager est déjà placé"""
 
 ################################# PROGRAMME PRINCIPALE 
 canvas = tk.Canvas(screen, width = 140, height = 600, borderwidth=0, highlightthickness=0, bg = "black")
