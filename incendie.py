@@ -95,42 +95,11 @@ def voisins_sièges():
 
 ################################# PROGRAMME PRINCIPALE 
 canvas = tk.Canvas(screen, width = 140, height = 600, borderwidth=0, highlightthickness=0, bg = "black")
-
-case1 = tk.Button(screen, text="  ", bg="yellow")
-label1 = tk.Label(screen, text="ZERO BAGAGE")
-
-case2 = tk.Button(screen, text="  ", bg="orange")
-label2 = tk.Label(screen, text="UN BAGAGE")
-
-case3 = tk.Button(screen, text="  ", bg="red")
-label3 = tk.Label(screen, text="DEUX BAGAGES")
-
-case4 = tk.Button(screen, text="  ", bg="steel blue")
-label4 = tk.Label(screen, text="SIEGES VIDES")
-
-case5 = tk.Button(screen, text="  ", bg="green")
-label5 = tk.Label(screen, text="SIEGES OCCUPEES")
-
 sieges_couloir()
 
 
 ################################# PLACEMENT DES WIDGETS
 canvas.grid(column = 0, row = 0, rowspan=5)
-
-case1.grid(column=1, row=0)
-label1.grid(column=2, row=0)
-
-case2.grid(column=1, row=1)
-label2.grid(column=2, row=1)
-
-case3.grid(column=1, row=2)
-label3.grid(column=2, row=2)
-
-case4.grid(column=1, row=3)
-label4.grid(column=2, row=3)
-
-case5.grid(column=1, row=4)
-label5.grid(column=2, row=4)
 
 
 ################################# FIN DE LA BOUCLE
