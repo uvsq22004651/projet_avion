@@ -12,14 +12,17 @@
 ################################
 
 ################################ Fonctionnement du programme
-
+"""Ce code est une simulation de passager ce plaçant à une place qui leur est 
+attribué à bord d'un avion. Si deux passager sont l'un derrière l'autre, le premier 
+dans le couloir de l'avion, le premier doit attendre que le second se soit placé à sont
+siège. Chaque passager à 0,1 ou 2 bagages"""
 
 ################################# IMPORTATIONS DE LIBRAIRIES
 import tkinter as tk
 
 ################################ INITIALISATION
 screen = tk.Tk()
-screen.title("avion")
+screen.title("Simulation avion")
 
 ################################# CONSTANTES
 SIEGES_VIDES = "steel blue"
@@ -41,22 +44,25 @@ cpt = 0
 
 ################################# FONCTIONS
 def sieges_couloir():
-    global COTE, SIEGES_VIDES, COULOIR
-    """Création des sièges et du couloir de l'avion"""
-    coords = []
+    global COTE, SIEGES, COULOIR
+    """Création des sièges de l'avion et du couloir de l'avion"""
     for i in range (7):
         for j in range (30):
-                carré = canvas.create_rectangle(i*COTE, j*COTE, (1+i)*COTE, (1+j)*COTE, fill = SIEGES_VIDES)
+                celule = canvas.create_rectangle(i*COTE, j*COTE, (1+i)*COTE, (1+j)*COTE, fill = SIEGES)
                 if i == 3:
-                    canvas.itemconfig(carré, fill = COULOIR)
-                coords.append([i, j])
-    print(coords)
-    return coords
+                    canvas.itemconfig(celule, fill = COULOIR)
 
-def coordonnées_lignes_colonnes():
-    """Fonction qui retourne la colonne et la ligne dans l'avion
-    grâce aux coordonnées de x et y"""
-    return x // COTE, y // COTE
+
+def coordonnees_sieges():
+    """Acrédite une coordonnées à chaques sièges de l'avion sous forme
+    de tableau à deux dimensions"""
+    coordonnées = []
+    for col in range (1,4):
+        for line in range (1,31):
+            coordonnées.append([col, line]) #sièges à gauche du couloir
+    for col in range (4, 8):
+        for line in range (1, 31):
+            coordonnées.append([col, line]) #sièges à droite du couloir 
 
 
 def tableau_2D():
@@ -87,14 +93,13 @@ def traite_case_couloir(i, j):
     valeur du tableau"""
     nb_vivant = compte_vivant(i, j)
     if tableau[i][j] == -1:
-        print()
 
 
 def voisins_sièges():
     """Examine les sièges pour savoir si un passager est déjà placé"""
 
 ################################# PROGRAMME PRINCIPALE 
-canvas = tk.Canvas(screen, width = 140, height = 600, borderwidth=0, highlightthickness=0, bg = "black")
+canvas = tk.Canvas(screen, width = 280, height = 600, borderwidth=0, highlightthickness=0, bg = "black")
 sieges_couloir()
 
 
