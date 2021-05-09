@@ -7,7 +7,7 @@
 #Nadir HADIOUI
 #Ismael AYAD
 #Oumou ATJI
-#Adil
+#Nabil SABER
 #https://github.com/uvsq22004651/projet_avion/edit/main/incendie.py
 ################################
 
