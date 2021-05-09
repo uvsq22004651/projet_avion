@@ -43,12 +43,13 @@ cpt = 0
 def sieges_couloir():
     global COTE, SIEGES_VIDES, COULOIR
     """Création des sièges et du couloir de l'avion"""
+    coords = []
     for i in range (7):
         for j in range (30):
                 carré = canvas.create_rectangle(i*COTE, j*COTE, (1+i)*COTE, (1+j)*COTE, fill = SIEGES_VIDES)
                 if i == 3:
                     canvas.itemconfig(carré, fill = COULOIR)
-                coords.append([i, j])  
+                coords.append([i, j])
     print(coords)
     return coords
 
