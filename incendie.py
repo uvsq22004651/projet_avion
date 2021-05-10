@@ -107,7 +107,7 @@ def bagages():
     for i in range(7):
          for j in range(30):
             coordonnées.append([i, j])
-            bagages[(i, j)] = randint(0,3)
+            bagages[(i, j)] = rd.randint(0,3)
 
 ################################# PROGRAMME PRINCIPALE 
 canvas = tk.Canvas(screen, width = 280, height = 600, borderwidth=0, highlightthickness=0, bg = "black")
