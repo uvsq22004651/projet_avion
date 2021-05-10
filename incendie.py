@@ -97,6 +97,16 @@ def traite_case_couloir(i, j):
 
 def voisins_sièges():
     """Examine les sièges pour savoir si un passager est déjà placé"""
+    
+
+def bagages():
+    coords = []
+    bagages = {}
+ 
+    for i in range(7):
+         for j in range(30):
+            coords.append([i, j])
+            bagages[(i, j)] = randint(0,3)
 
 ################################# PROGRAMME PRINCIPALE 
 canvas = tk.Canvas(screen, width = 280, height = 600, borderwidth=0, highlightthickness=0, bg = "black")
