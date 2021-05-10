@@ -100,12 +100,12 @@ def voisins_sièges():
     
 
 def bagages():
+    """Donne entre 0,1 ou 2 bagage(s) aux passagers"""
     coordonnées = []
     bagages = {}
- 
     for i in range(7):
          for j in range(30):
-            coords.append([i, j])
+            coordonnées.append([i, j])
             bagages[(i, j)] = randint(0,3)
 
 ################################# PROGRAMME PRINCIPALE 
