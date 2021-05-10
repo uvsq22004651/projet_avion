@@ -104,7 +104,7 @@ sieges_couloir()
 
 
 ################################# PLACEMENT DES WIDGETS
-canvas.grid(column = 0, row = 0, rowspan=5)
+canvas.grid(column = 0, row = 0, rowspan = 6)
 
 
 ################################# FIN DE LA BOUCLE
