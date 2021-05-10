@@ -39,7 +39,7 @@ NB_COl = LARGEUR // COTE
 NB_LINE = HAUTEUR // COTE
 
 tableau = None
-coords = None
+coordonnées = None
 cpt = 0
 
 ################################# FONCTIONS
@@ -100,7 +100,7 @@ def voisins_sièges():
     
 
 def bagages():
-    coords = []
+    coordonnées = []
     bagages = {}
  
     for i in range(7):
