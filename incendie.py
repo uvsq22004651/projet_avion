@@ -19,6 +19,7 @@ siège. Chaque passager à 0,1 ou 2 bagages"""
 
 ################################# IMPORTATIONS DE LIBRAIRIES
 import tkinter as tk
+import random as rd
 
 ################################ INITIALISATION
 screen = tk.Tk()
