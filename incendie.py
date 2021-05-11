@@ -108,8 +108,8 @@ def bagages():
          for j in range(30):
             coordonnées.append([i, j])
             bagages[(i, j)] = rd.randint(0,3)
+            
 
-################################# PROGRAMME PRINCIPALE 
 def legende():
     """Création d'une légende pour définir chaques carrés de couleur"""
     canvas.create_rectangle((180, 40), (200, 60), fill = SIEGES)
@@ -135,9 +135,12 @@ def legende():
     canvas.create_rectangle((180, 540), (200, 560), fill = PLACE)
     leg_place = tk.Label(screen, text = "Passager placé à sa place", font = "Arial")
     leg_place.grid(column = 1, row = 5)
+
+
+################################# PROGRAMME PRINCIPALE 
 canvas = tk.Canvas(screen, width = 280, height = 600, borderwidth=0, highlightthickness=0, bg = "black")
 sieges_couloir()
-
+legend()
 
 ################################# PLACEMENT DES WIDGETS
 canvas.grid(column = 0, row = 0, rowspan = 6)
