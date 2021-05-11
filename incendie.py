@@ -110,6 +110,31 @@ def bagages():
             bagages[(i, j)] = rd.randint(0,3)
 
 ################################# PROGRAMME PRINCIPALE 
+def legende():
+    """Création d'une légende pour définir chaques carrés de couleur"""
+    canvas.create_rectangle((180, 40), (200, 60), fill = SIEGES)
+    leg_siege = tk.Label(screen, text = "Siège", font = "Arial")
+    leg_siege.grid(column = 1, row = 0) 
+
+    canvas.create_rectangle((180, 140), (200, 160), fill = COULOIR)
+    leg_couloir = tk.Label(screen, text = "Couloir", font = "Arial")
+    leg_couloir.grid(column =1, row = 1)
+
+    canvas.create_rectangle((180, 240), (200, 260), fill = ZERO_BAGAGE)
+    leg_zero_bagage = tk.Label(screen, text = "Passager avec aucun bagage", font = "Arial")
+    leg_zero_bagage.grid(column = 1, row = 2)
+
+    canvas.create_rectangle((180, 340), (200, 360), fill = UN_BAGAGE)
+    leg_un_bagage = tk.Label(screen, text = "Passager avec un bagage", font = "Arial")
+    leg_un_bagage.grid(column = 1, row = 3)
+
+    canvas.create_rectangle((180, 440), (200, 460), fill = DEUX_BAGAGES)
+    leg_deux_bagage = tk.Label(screen, text = "Passager avec deux bagages", font = "Arial")
+    leg_deux_bagage.grid(column = 1, row =4)
+
+    canvas.create_rectangle((180, 540), (200, 560), fill = PLACE)
+    leg_place = tk.Label(screen, text = "Passager placé à sa place", font = "Arial")
+    leg_place.grid(column = 1, row = 5)
 canvas = tk.Canvas(screen, width = 280, height = 600, borderwidth=0, highlightthickness=0, bg = "black")
 sieges_couloir()
 
