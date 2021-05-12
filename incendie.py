@@ -79,14 +79,40 @@ def tableau_2D():
             tableau.append([1]*NB_LINE) #sièges
 
 
-def voisins_couloir(i, j):
-    """Examine le couloir de l'avion pour pour examiner leur voisins"""
-    cpt = 0
+def voisins_couloir():
+    """Examine le couloir de l'avion pour savoir si les passagers ont
+    des voisins devant eux"""
+    global tableau
+    voisins_milieu = 0
     for v in range(3, 4):
         for w in range(NB_LINE):
             if tableau[v][w] != 0 and [v, w] != [i, j]:
-                cpt += 1
-    return cpt
+                voisins_milieu += 1
+    return voisins_milieu
+
+
+def voisins_sièges_gauche():
+    """Examine les sièges à gauche du couloir pour voir si un passager
+    est déjà placé"""
+    global tableau
+    voisins_gauche = 0
+    for v in range(0, 3):
+        for w in range(NB_LINE):
+            if tableau[v][w] != 0 and [v, w] != [i, j]:
+                voisins_gauche += 1
+    return voisins_gauche
+                    
+
+def voisins_sièges_droite():
+    global tableau
+    """Examine les sièges à droite du couloir pour voir si un passager
+    est déjà placé"""
+    voisins_droite = 0
+    for v in range(4, 7):
+        for w in range(NB_LINE):
+            if tableau[v][w] != 0 and [v, w] != [i, j]:
+                voisins_droite += 1
+    return voisins_droite
 
 
 def traite_case_couloir(i, j):
@@ -94,22 +120,8 @@ def traite_case_couloir(i, j):
     valeur du tableau"""
     nb_vivant = compte_vivant(i, j)
     if tableau[i][j] == -1:
-
-
-def voisins_sièges():
-    """Examine les sièges pour savoir si un passager est déjà placé"""
     
 
-def bagages():
-    """Donne entre 0,1 ou 2 bagage(s) aux passagers"""
-    coordonnées = []
-    bagages = {}
-    for i in range(7):
-         for j in range(30):
-            coordonnées.append([i, j])
-            bagages[(i, j)] = rd.randint(0,3)
-
-################################# PROGRAMME PRINCIPALE 
 def legende():
     """Création d'une légende pour définir chaques carrés de couleur"""
     canvas.create_rectangle((180, 40), (200, 60), fill = SIEGES_VIDES)
@@ -135,10 +147,12 @@ def legende():
     canvas.create_rectangle((180, 540), (200, 560), fill = SIEGES_OCCUPEES)
     leg_place = tk.Label(screen, text = "Passager assis à sa place", font = "Arial")
     leg_place.grid(column = 1, row = 5)
+
+
+################################# PROGRAMME PRINCIPALE 
 canvas = tk.Canvas(screen, width = 280, height = 600, borderwidth=0, highlightthickness=0, bg = "black")
 sieges_couloir()
 legende()
-
 
 ################################# PLACEMENT DES WIDGETS
 canvas.grid(column = 0, row = 0, rowspan = 6)
