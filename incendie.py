@@ -61,7 +61,7 @@ def sieges_couloir():
 
 
 def coordonnees_sieges():
-    """Acrédite une coordonnées à chaques sièges de l'avion sous forme
+    """Attribue une coordonnée à chaques sièges de l'avion sous forme
     de tableau à deux dimensions"""
     coordonnées = []
     for col in range (1,4):
