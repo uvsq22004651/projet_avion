@@ -34,21 +34,27 @@ DEUX_BAGAGES = "red"
 SIEGES_OCCUPEES = "green"
 LARGEUR = 140
 HAUTEUR = 600
-# la longeur des carrés qui constituent le quadrillage
+
+#Longeur des carrés qui constituent le quadrillage
 COTE = 20
 NB_COl = LARGEUR // COTE
 NB_LINE = HAUTEUR // COTE
 
+################################# VARIABLES
+#Initialisations des listes et des variables
 tableau = None
 coordonnées = None
-cpt = 0
+liste_passagers = None
+voisins_milieu = 0
+voisins_gauche = 0
+voisisns_droite = 0
 
 ################################# FONCTIONS
 def sieges_couloir():
     global COTE, SIEGES, COULOIR
     """Création des sièges de l'avion et du couloir de l'avion"""
-    for i in range (7):
-        for j in range (30):
+    for i in range (7): #Création des colonnes
+        for j in range (30): #Création des lignes
                 celule = canvas.create_rectangle(i*COTE, j*COTE, (1+i)*COTE, (1+j)*COTE, fill = SIEGES)
                 if i == 3:
                     canvas.itemconfig(celule, fill = COULOIR)
@@ -60,10 +66,11 @@ def coordonnees_sieges():
     coordonnées = []
     for col in range (1,4):
         for line in range (1,31):
-            coordonnées.append([col, line]) #sièges à gauche du couloir
+            coordonnées.append([col, line]) #Sièges à gauche du couloir
     for col in range (4, 8):
         for line in range (1, 31):
-            coordonnées.append([col, line]) #sièges à droite du couloir 
+            coordonnées.append([col, line]) #Sièges à droite du couloir
+    return coordonnées
 
 
 def tableau_2D():
@@ -74,9 +81,32 @@ def tableau_2D():
     tableau = []
     for i in range(NB_COl):
         if i == 3:
-            tableau.append([0]*NB_LINE) #couloir
+            tableau.append([0]*NB_LINE) #Couloir
         else:
-            tableau.append([1]*NB_LINE) #sièges
+            tableau.append([1]*NB_LINE) #Sièges
+    return tableau
+
+
+def création_passagers_bagages():
+    """Création des 180 passagers numéroté de 0 à 179 à qui on affecte un
+    chiffre entre 0 et 2 qui correspond au nombre de bagage(s)"""
+    global coordonnées
+    liste_passagers = []
+    for passagers in range (180): 
+        liste_passagers.append([passagers]) #Donne un numéro à chaque passager
+        for bagages in range (1):
+            liste_passagers[passagers].append(rd.randint(0,2)) #Donne entre 0 et 2 bagages aléatoirement
+    return liste_passagers
+    
+
+def coordonnées_passagers():
+    """Donne une place à chaque passager de manière aléatoire"""
+    global liste_passagers, coordonnées
+    for i in range(180):
+        place = rd.randint(180) #Choisi un nombre au hasard
+        liste_passagers[i].append(coordonnées[place]) #Ajoute la place dans la liste liste_passagers
+        coordonnées.remove[place] #Supprime la place de la liste coordonnées
+    return liste_passagers
 
 
 def voisins_couloir():
@@ -113,13 +143,6 @@ def voisins_sièges_droite():
             if tableau[v][w] != 0 and [v, w] != [i, j]:
                 voisins_droite += 1
     return voisins_droite
-
-
-def traite_case_couloir(i, j):
-    """Traite la case à la colonne i et ligne j en retournant la nouvelle 
-    valeur du tableau"""
-    nb_vivant = compte_vivant(i, j)
-    if tableau[i][j] == -1:
     
 
 def legende():
@@ -156,7 +179,6 @@ legende()
 
 ################################# PLACEMENT DES WIDGETS
 canvas.grid(column = 0, row = 0, rowspan = 6)
-
 
 ################################# FIN DE LA BOUCLE
 screen.mainloop()
