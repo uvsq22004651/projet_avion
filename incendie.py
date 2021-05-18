@@ -96,8 +96,43 @@ def création_passagers_bagages():
         liste_passagers.append([passagers]) #Donne un numéro à chaque passager
         for bagages in range (1):
             liste_passagers[passagers].append(rd.randint(0,2)) #Donne entre 0 et 2 bagages aléatoirement
-    return liste_passagers
+    return liste_passagers 
+
+class passeegr: 
+        def __init__(self,num,x,y,bagages=[]):
+    self.x,self.y=x,y
+    self.bagages=bagages
+class Cellule:
+  
+  def __init__(self,x,y,typeC):
+    if typeC in ['couloir','siege']:
+      self.typeC=typeC
+      self.x,self.y=x,y
+    else :
+      raise ValueError("type non reconnu")
     
+    self.passenger=None
+ 
+  def __str__(self):
+    i,j=self.x,self.y
+    if i==4:
+         return "couloir"
+    if i < 10:
+          i="0"+str(i)
+    if j < 10:
+          j="0"+str(j)  
+
+          if passenger = 0 : 
+              print(passager is yellow ) 
+                
+else : 
+    if passagers = 1 : 
+        print(passager is orange )
+
+else : 
+    if passager = 2 : 
+        print(passagers is red)
+   return str(i)+" "+str(j)
 
 def coordonnées_passagers():
     """Donne une place à chaque passager de manière aléatoire"""
