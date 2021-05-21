@@ -43,8 +43,8 @@ NB_LINE = HAUTEUR // COTE
 ################################# VARIABLES
 #Initialisations des listes et des variables
 tableau = None
-coordonnées = None
-liste_passagers = None
+coordonnées = None #Numéros des places dans l'avion
+liste_passagers = None #Liste des 180 passagers
 voisins_milieu = 0
 voisins_gauche = 0
 voisisns_droite = 0
@@ -88,24 +88,28 @@ def tableau_2D():
 
 
 def création_passagers_bagages():
-    """Création des 180 passagers numéroté de 0 à 179 à qui on affecte un
-    chiffre entre 0 et 2 qui correspond au nombre de bagage(s)"""
+    """Création des 180 passagers numéroté de 0 à 179 à qui on affecte un chiffre
+    entre 0 et 2 qui correspond au nombre de bagage(s) et une place au sein de l'avion"""
     global coordonnées
     liste_passagers = []
+    place = []
+    max_nb_hasard = 179 
+    nb = 0
     for passagers in range (180): 
-        liste_passagers.append([passagers]) #Donne un numéro à chaque passager
+        liste_passagers.append([passagers]) #Donne un numéro à chaque passager entre 0 et 179
         for bagages in range (1):
             liste_passagers[passagers].append(rd.randint(0,2)) #Donne entre 0 et 2 bagages aléatoirement
-    return liste_passagers
-    
-
-def coordonnées_passagers():
-    """Donne une place à chaque passager de manière aléatoire"""
-    global liste_passagers, coordonnées
+    for i in range(1, 8): #Création des coordonnées des places de l'avion
+        if i == 4: #Exclus la colonne du couloir pour avoir les coordonnées des 180 sièges
+            continue
+        for j in range(1, 31):
+            place.append([i , j]) #Ajoute les coordonnées dans la liste place
     for i in range(180):
-        place = rd.randint(180) #Choisi un nombre au hasard
-        liste_passagers[i].append(coordonnées[place]) #Ajoute la place dans la liste liste_passagers
-        coordonnées.remove[place] #Supprime la place de la liste coordonnées
+        nb_hasard = rd.randint(0, max_nb_hasard) #Choisi un nombre au hasard
+        liste_passagers[nb].append(place[nb_hasard]) #Ajoute la coordonnée dans la liste liste_passagers à partir de l'indice donné aléatoirement par nb_hasard
+        del place[nb_hasard] #Supprime la coordonnée de la liste place
+        max_nb_hasard -= 1
+        nb += 1
     return liste_passagers
 
 
