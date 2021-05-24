@@ -48,6 +48,8 @@ liste_passagers = None #Liste des 180 passagers
 voisins_milieu = 0
 voisins_gauche = 0
 voisisns_droite = 0
+ligne_passager = 1 #Initilisation du nombre de ligne passé par le passager
+colonne_passager = 4 #Initialisation du nombre de colonne passé par le passager
 
 ################################# FONCTIONS
 def sieges_couloir():
@@ -87,9 +89,10 @@ def tableau_2D():
     return tableau
 
 
-def création_passagers_bagages():
-    """Création des 180 passagers numéroté de 0 à 179 à qui on affecte un chiffre
-    entre 0 et 2 qui correspond au nombre de bagage(s) et une place au sein de l'avion"""
+def création_passagers_bagages_coords():
+    """Création des 180 passagers numérotés de 0 à 179 à qui on affecte un chiffre
+    entre 0 et 2 qui correspond au nombre de bagage(s) et une place au sein de l'avion
+    de la forme [numéro_passager, nb_bagages, [coordonnées_x, coordonnées_y]]"""
     global coordonnées
     liste_passagers = []
     place = []
@@ -109,8 +112,60 @@ def création_passagers_bagages():
         liste_passagers[nb].append(place[nb_hasard]) #Ajoute la coordonnée dans la liste liste_passagers à partir de l'indice donné aléatoirement par nb_hasard
         del place[nb_hasard] #Supprime la coordonnée de la liste place
         max_nb_hasard -= 1
-        nb += 1
+        nb += 1 #Compteur pour la liste de passagers
     return liste_passagers
+
+
+def création_cercle_passagers():
+    """Création des passagers en forme de cercle et retourne son identifiant
+    et les valeurs de déplacements dans une liste"""
+    global ZERO_BAGAGE, UN_BAGAGE, DEUX_BAGAGES, liste_passagers, COTE
+    indice_bagage = 0
+    dx, dy = 0, COTE
+    l = création_passagers_bagages_coords()
+    cercle_passager = canvas.create_oval((3*COTE, 0), (4*COTE, COTE), fill = "") #Initailisation des passagers avec aucune couleur
+    if l[indice_bagage][1] == 0:
+        canvas.itemconfigure(cercle_passager, fill = ZERO_BAGAGE) #Si le passager a aucun bagage il est de couleur jaune
+        indice_bagage += 1 #Compteur pour passer au prochain passager
+    elif l[indice_bagage][1] == 1:
+        canvas.itemconfigure(cercle_passager, fill = UN_BAGAGE) #Si le passager a un bagage il est de couleur orange
+        indice_bagage += 1 #Compteur pour passer au prochain passager
+    elif l[indice_bagage][1] == 2:
+        canvas.itemconfigure(cercle_passager, fill = DEUX_BAGAGES) #Si le passager a deux bagages il est de couleur rouge
+        indice_bagage += 1 #Compteur pour passer au prochain passager
+    return [cercle_passager, dx, dy, l]
+
+
+def mouvement():
+    """Déplace le passager en direction de son siège"""
+    global ligne_passager, colonne_passager
+    indice_coords = 0
+    canvas.move(cercle[0], cercle[1], cercle[2])
+    canvas.after(1000, mouvement)
+    ligne_passager += 1
+    if  cercle[3][indice_coords][2][1] == ligne_passager:
+        if cercle[3][indice_coords][2][0] < 4: 
+            cercle[2] = 0 #Stop le déplacement vertical
+            if cercle[3][indice_coords][2][0] == colonne_passager:
+                cercle[1] = 0 #Stop le déplacement horizontal
+                indice_coords += 1
+            elif cercle[3][indice_coords][2][0] != colonne_passager:
+                colonne_passager += 1
+                cercle[1] = -COTE #Déplacement à gauche du couloir
+                ligne_passager -= 1   
+        elif cercle[3][indice_coords][2][0] > 4:
+            cercle[2] = 0 #Stop le déplacement vertical
+            if cercle[3][indice_coords][2][0] == colonne_passager:
+                cercle[1] = 0 #Stop le déplacement horizontal
+                indice_coords += 1
+            elif cercle[3][indice_coords][2][0] != colonne_passager:
+                colonne_passager += 1
+                cercle[1] = COTE #Déplacement à droite du couloir
+                ligne_passager -=1
+        else:
+            pass
+    else:
+        pass
 
 
 def voisins_couloir():
@@ -180,6 +235,8 @@ def legende():
 canvas = tk.Canvas(screen, width = 280, height = 600, borderwidth=0, highlightthickness=0, bg = "black")
 sieges_couloir()
 legende()
+cercle = création_cercle_passagers()
+mouvement()
 
 ################################# PLACEMENT DES WIDGETS
 canvas.grid(column = 0, row = 0, rowspan = 6)
