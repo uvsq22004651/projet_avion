@@ -57,7 +57,7 @@ def sieges_couloir():
     """Création des sièges de l'avion et du couloir de l'avion"""
     for i in range (7): #Création des colonnes
         for j in range (30): #Création des lignes
-                celule = canvas.create_rectangle(i*COTE, j*COTE, (1+i)*COTE, (1+j)*COTE, fill = SIEGES)
+                celule = canvas.create_rectangle(i*COTE, j*COTE, (1+i)*COTE, (1+j)*COTE, fill = SIEGES_VIDES)
                 if i == 3:
                     canvas.itemconfig(celule, fill = COULOIR)
 
