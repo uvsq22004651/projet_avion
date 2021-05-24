@@ -232,7 +232,7 @@ def legende():
 
 
 ################################# PROGRAMME PRINCIPALE 
-canvas = tk.Canvas(screen, width = 280, height = 600, borderwidth=0, highlightthickness=0, bg = "black")
+canvas = tk.Canvas(screen, width = 200, height = HAUTEUR, borderwidth=0, highlightthickness=0, bg = "black")
 sieges_couloir()
 legende()
 cercle = création_cercle_passagers()
