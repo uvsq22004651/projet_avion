@@ -38,7 +38,7 @@ def rebond():
     if x0 <= 0 or x1 >= 600:
         balle[1] = -balle[1]
         NB_REBOND += 1
-        canvas.itemconfigure(cercle, fill = 'white')
+        #canvas.itemconfigure(cercle, fill = 'white')
     if y0 <= 0 or y1 >= 400:
         balle[2] = -balle[2]
         NB_REBOND += 1
